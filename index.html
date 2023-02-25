@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Mikail ,Roman" />
+    <title>Connect 4</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/general.css" />
+    <link rel="icon" href="img/C4Logo-modified.png">
+  </head>
+  <body id="body" class="main-bg">
+    <section id="section-bg" class="">
+      <div id="game" class="floating-animation">
+        <div class="game-container">
+          <div id="id01" class="coin c1 r1"></div>
+          <div id="id02" class="coin c2 r1"></div>
+          <div id="id03" class="coin c3 r1"></div>
+          <div id="id04" class="coin c4 r1"></div>
+          <div id="id05" class="coin c5 r1"></div>
+          <div id="id06" class="coin c6 r1"></div>
+          <div id="id07" class="coin c7 r1"></div>
+          <div id="id08" class="coin c1 r2"></div>
+          <div id="id09" class="coin c2 r2"></div>
+          <div id="id10" class="coin c3 r2"></div>
+          <div id="id11" class="coin c4 r2"></div>
+          <div id="id12" class="coin c5 r2"></div>
+          <div id="id13" class="coin c6 r2"></div>
+          <div id="id14" class="coin c7 r2"></div>
+          <div id="id15" class="coin c1 r3"></div>
+          <div id="id16" class="coin c2 r3"></div>
+          <div id="id17" class="coin c3 r3"></div>
+          <div id="id18" class="coin c4 r3"></div>
+          <div id="id19" class="coin c5 r3"></div>
+          <div id="id20" class="coin c6 r3"></div>
+          <div id="id21" class="coin c7 r3"></div>
+          <div id="id22" class="coin c1 r4"></div>
+          <div id="id23" class="coin c2 r4"></div>
+          <div id="id24" class="coin c3 r4"></div>
+          <div id="id25" class="coin c4 r4"></div>
+          <div id="id26" class="coin c5 r4"></div>
+          <div id="id27" class="coin c6 r4"></div>
+          <div id="id28" class="coin c7 r4"></div>
+          <div id="id29" class="coin c1 r5"></div>
+          <div id="id30" class="coin c2 r5"></div>
+          <div id="id31" class="coin c3 r5"></div>
+          <div id="id32" class="coin c4 r5"></div>
+          <div id="id33" class="coin c5 r5"></div>
+          <div id="id34" class="coin c6 r5"></div>
+          <div id="id35" class="coin c7 r5"></div>
+          <div id="id36" class="coin c1 r6"></div>
+          <div id="id37" class="coin c2 r6"></div>
+          <div id="id38" class="coin c3 r6"></div>
+          <div id="id39" class="coin c4 r6"></div>
+          <div id="id40" class="coin c5 r6"></div>
+          <div id="id41" class="coin c6 r6"></div>
+          <div id="id42" class="coin c7 r6"></div>
+        </div>
+
+        <div class="hidden-buttons">
+          <div class="hidden-button" onclick="setzeFarbe(0)"></div>
+          <div class="hidden-button" onclick="setzeFarbe(1)"></div>
+          <div class="hidden-button" onclick="setzeFarbe(2)"></div>
+          <div class="hidden-button" onclick="setzeFarbe(3)"></div>
+          <div class="hidden-button" onclick="setzeFarbe(4)"></div>
+          <div class="hidden-button" onclick="setzeFarbe(5)"></div>
+          <div class="hidden-button" onclick="setzeFarbe(6)"></div>
+        </div>
+      </div>
+
+      <div id="color-container" class="container">
+        <div class="color-picker-container">
+          <div
+            class="color-picker color-random color-random1"
+            onclick="randomColor(2)"
+          ></div>
+          <div
+            class="color-picker color1"
+            onclick="changeColor(2,'#e63946')"
+          ></div>
+          <div
+            class="color-picker color2"
+            onclick="changeColor(2,'#ee6c4d')"
+          ></div>
+          <div
+            class="color-picker color3"
+            onclick="changeColor(2,'#ffd60a')"
+          ></div>
+        </div>
+
+        <div
+          id="light-switch"
+          class="dark-mode-switch"
+          onclick="lightSwitch_Mode()"
+        >
+          <img
+            id="moon"
+            class="moon display-on"
+            src="img/icons8-moon-symbol-48.png"
+            alt="Moon"
+          />
+          <img id="sun" class="sun" src="img/icons8-sun-48.png" alt="Sun" />
+        </div>
+
+        <div class="color-picker-container">
+          <div
+            class="color-picker color4"
+            onclick="changeColor(1,'#9d4edd')"
+          ></div>
+          <div
+            class="color-picker color5"
+            onclick="changeColor(1,'#80ed99')"
+          ></div>
+          <div
+            class="color-picker color6"
+            onclick="changeColor(1,'#3E61AC')"
+          ></div>
+          <div
+            class="color-picker color-random color-random2"
+            onclick="randomColor(1)"
+          ></div>
+        </div>
+      </div>
+
+      <div id="win-message-p1" class="win-message fade-animation" onclick="reset()">
+        <h1 class="special-animation">Player 1</h1>
+        <p>wins</p>
+        <div class="loader"></div>
+        <div class="spinner-box">
+          <div class="configure-border-1">  
+            <div class="configure-core"></div>
+          </div>  
+          <div class="configure-border-2">
+            <div class="configure-core"></div>
+          </div> 
+        </div>
+      </div>
+      <div id="win-message-p2" class="win-message fade-animation" onclick="reset()">
+        <h1 class="special-animation">Player 2</h1>
+        <p>wins</p>
+        <div class="loader"></div>
+        <div class="spinner-box">
+          <div class="configure-border-1">  
+            <div class="configure-core"></div>
+          </div>  
+          <div class="configure-border-2">
+            <div class="configure-core"></div>
+          </div> 
+        </div>
+      </div>
+
+      <div id="win-c-p1" class="win-counter win-counter-p1">
+        <h1 id="wins-p1">Zahl</h1>
+        <p id="wins-p-p1">Zahl%</p>
+      </div>
+      <div id="win-c-p2" class="win-counter win-counter-p2">
+        <h1 id="wins-p2">Zahl</h1>
+        <p id="wins-p-p2">Zahl%</p>
+      </div>
+
+      
+
+    </section>
+  </body>
+  <script src="connect4.js"></script>
+</html>
