@@ -1,11 +1,15 @@
 /*                                      
 __________________________________________________________________KEYFRAMES ANIMATIONEN_____________________________________________________________________________________________
 */
+/*Fall animatiom*/
+
 @keyframes drop {
     0%{opacity: 0}
   70%{transform: translateY(20px)}
   100%{transform: translateY(0px)}
 }
+
+/*Animation der drehenden Farbachsen im Hintergrund*/
 @keyframes colorChange {
   10%{background: -webkit-linear-gradient(148deg, var(--primary-color) 60%, var(--secondary-color) 60%);}
   15%{background: -webkit-linear-gradient(147deg, var(--primary-color) 60%, var(--secondary-color) 60%);}
@@ -27,6 +31,8 @@ __________________________________________________________________KEYFRAMES ANIM
   95%{background: -webkit-linear-gradient(148deg, var(--primary-color) 60%, var(--secondary-color) 60%);}
   100%{background: -webkit-linear-gradient(150deg, var(--primary-color) 60%, var(--secondary-color) 60%);}
 }
+
+/*Regenbogen farbverlauf animation*/
 @keyframes rainbow{
     100%,0%{
         background-color: rgb(255,0,0);
@@ -65,16 +71,20 @@ __________________________________________________________________KEYFRAMES ANIM
         background-color: rgb(255,0,127);
     }
 }
+/*schwebe animation*/
+
 @keyframes floating {
     0% { transform: translate(0,  0px); }
     50%  { transform: translate(0, 10px); }
     100%   { transform: translate(0, 0px); }   
 }
+/*Verblassen animation*/
 @keyframes fade {
     0% { opacity: 0%; }
     80%  { opacity: 90%; }
     100%   { opacity: 80%; }   
 }
+/*Vergößern und verkleinern animation*/
 @keyframes special {
     0% {
       transform: scale(0.95);
@@ -105,7 +115,7 @@ __________________________________________________________________KEYFRAMES ANIM
       transform: rotate(360deg);
     }
   }
-  
+  /*Uhrzeiger drehung animation*/
   @keyframes configure-xclockwise {
     0% {
       transform: rotate(45deg);
@@ -123,7 +133,7 @@ __________________________________________________________________KEYFRAMES ANIM
       transform: rotate(-315deg);
     }
   }
-
+/*Uhrzeiger drehung animation(andere richtung)*/
   @keyframes spin {
     10%{
         opacity: 50%;
@@ -144,6 +154,7 @@ __________________________________________________________________KEYFRAMES ANIM
 /*
 ___________________________________________________________________ANIMATION_______________________________________________________________
 */
+/*jeweilige klasse der animation um die animation an ein objekt abzuspielen*/
 
 .floating-animation{
     animation: floating 3s ease-in-out infinite;
@@ -164,6 +175,9 @@ ___________________________________________________________________ANIMATION____
 _________________________________________________________________________REUSABLE STYLES___________________________________________________________
 */
 
+/*scihtbarkeit wird auf block geändert--> unsichtbare objekte werden sichtbar beim hinzufügen der klasse*/
+
 .display-on{
     display:block;
 }
+

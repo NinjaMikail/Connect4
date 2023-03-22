@@ -9,10 +9,37 @@
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/general.css" />
-    <link rel="icon" href="img/C4Logo-modified.png">
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="icon" href="img/C4Logo-modified.png" />
   </head>
-  <body id="body" class="main-bg">
-    <section id="section-bg" class="">
+  <body id="body" class="main-bg display-on">
+    <section id="section-bg">
+      <div class="navbar">
+        <ul>
+          <li
+            id="blind-mode"
+            class="navbar-buttons"
+            onclick="blindMode('#e63946')"
+          >
+            <a href="#">Blind</a>
+          </li>
+          <li
+            id="normal-mode"
+            class="navbar-buttons navbar-active"
+            onclick="normalMode('#e63946','#3E61AC')"
+          >
+            <a href="#">Normal</a>
+          </li>
+          <li class="logo" onclick="fullReset()">
+            <a href="#">Connect<span>4</span></a>
+          </li>
+          <li id="mute-button" class="navbar-buttons" onclick="muteButtonChange()">
+              <a href="#">Mute
+              </a>
+          </li>
+        </ul>
+      </div>
+
       <div id="game" class="floating-animation">
         <div class="game-container">
           <div id="id01" class="coin c1 r1"></div>
@@ -70,84 +97,111 @@
         </div>
       </div>
 
-      <div id="color-container" class="container">
-        <div class="color-picker-container">
-          <div
-            class="color-picker color-random color-random1"
-            onclick="randomColor(2)"
-          ></div>
-          <div
-            class="color-picker color1"
-            onclick="changeColor(2,'#e63946')"
-          ></div>
-          <div
-            class="color-picker color2"
-            onclick="changeColor(2,'#ee6c4d')"
-          ></div>
-          <div
-            class="color-picker color3"
-            onclick="changeColor(2,'#ffd60a')"
-          ></div>
-        </div>
+      <div class="container-colors">
+        <div id="color-container" class="container">
+          <div id="color-picker-container1" class="color-picker-container">
+            <div
+              class="color-picker color-random color-random1"
+              onclick="randomColor(2)"
+            ></div>
+            <div
+              class="color-picker color1"
+              onclick="changeColor(2,'#e63946')"
+            ></div>
+            <div
+              class="color-picker color2"
+              onclick="changeColor(2,'#ee6c4d')"
+            ></div>
+            <div
+              class="color-picker color3"
+              onclick="changeColor(2,'#ffd60a')"
+            ></div>
+          </div>
 
-        <div
-          id="light-switch"
-          class="dark-mode-switch"
-          onclick="lightSwitch_Mode()"
-        >
-          <img
-            id="moon"
-            class="moon display-on"
-            src="img/icons8-moon-symbol-48.png"
-            alt="Moon"
-          />
-          <img id="sun" class="sun" src="img/icons8-sun-48.png" alt="Sun" />
-        </div>
+          <div
+            id="light-switch"
+            class="dark-mode-switch"
+            onclick="lightSwitch_Mode()"
+          >
+            <img
+              id="moon"
+              class="moon display-on"
+              src="img/icons8-moon-symbol-48.png"
+              alt="Moon"
+            />
+            <img id="sun" class="sun" src="img/icons8-sun-48.png" alt="Sun" />
+          </div>
 
-        <div class="color-picker-container">
-          <div
-            class="color-picker color4"
-            onclick="changeColor(1,'#9d4edd')"
-          ></div>
-          <div
-            class="color-picker color5"
-            onclick="changeColor(1,'#80ed99')"
-          ></div>
-          <div
-            class="color-picker color6"
-            onclick="changeColor(1,'#3E61AC')"
-          ></div>
-          <div
-            class="color-picker color-random color-random2"
-            onclick="randomColor(1)"
-          ></div>
+          <div id="color-picker-container2" class="color-picker-container">
+            <div
+              class="color-picker color4"
+              onclick="changeColor(1,'#9d4edd')"
+            ></div>
+            <div
+              class="color-picker color5"
+              onclick="changeColor(1,'#80ed99')"
+            ></div>
+            <div
+              class="color-picker color6"
+              onclick="changeColor(1,'#3E61AC')"
+            ></div>
+            <div
+              class="color-picker color-random color-random2"
+              onclick="randomColor(1)"
+            ></div>
+          </div>
         </div>
       </div>
 
-      <div id="win-message-p1" class="win-message fade-animation" onclick="reset()">
+      <div
+        id="win-message-p1"
+        class="win-message fade-animation"
+        onclick="reset()"
+      >
         <h1 class="special-animation">Player 1</h1>
         <p>wins</p>
         <div class="loader"></div>
         <div class="spinner-box">
-          <div class="configure-border-1">  
+          <div class="configure-border-1">
             <div class="configure-core"></div>
-          </div>  
+          </div>
           <div class="configure-border-2">
             <div class="configure-core"></div>
-          </div> 
+          </div>
         </div>
       </div>
-      <div id="win-message-p2" class="win-message fade-animation" onclick="reset()">
+      <div
+        id="win-message-p2"
+        class="win-message fade-animation"
+        onclick="reset()"
+      >
         <h1 class="special-animation">Player 2</h1>
         <p>wins</p>
         <div class="loader"></div>
         <div class="spinner-box">
-          <div class="configure-border-1">  
+          <div class="configure-border-1">
             <div class="configure-core"></div>
-          </div>  
+          </div>
           <div class="configure-border-2">
             <div class="configure-core"></div>
-          </div> 
+          </div>
+        </div>
+      </div>
+      <div
+        id="no-win-message"
+        class="win-message fade-animation"
+        onclick="reset()"
+      >
+        <h1 class="special-animation">Nobody</h1>
+        <p>wins</p>
+        <div class="loader"></div>
+        <div class="spinner-box">
+          <div class="configure-border-1">
+            <div class="configure-core"></div>
+          </div>
+          <div class="configure-border-2">
+            <div class="configure-core"></div>
+          </div>
         </div>
       </div>
 
@@ -160,9 +214,56 @@
         <p id="wins-p-p2">Zahl%</p>
       </div>
 
-      
-
+      <div class="puffer"></div>
     </section>
+
+    <audio id="audiofile-mute" preload="auto">
+      <source src="sounds/mixkit-negative-tone-interface-tap-2569.wav" />
+    </audio>
+    <audio id="audiofile-place-coin" preload="auto">
+      <source src="sounds/mixkit-positive-interface-click-1112.wav" />
+    </audio>
+    <audio id="audiofile-change-mode" preload="auto">
+      <source src="sounds/mixkit-paper-slide-1530.wav" />
+    </audio>
+    <audio id="audiofile-switch" preload="auto">
+      <source src="sounds/mixkit-on-or-off-light-switch-tap-2585.wav" />
+    </audio>
+    <audio id="audiofile-color-picker" preload="auto">
+      <source src="sounds/mixkit-hard-single-key-press-in-a-laptop-2542.wav" />
+    </audio>
+    <audio id="audiofile-nobody-wins" preload="auto" loop>
+      <source src="sounds/untitled_1071 (1).mp3" />
+    </audio>
+    <audio id="audiofile-win1" preload="auto" loop>
+      <source src="sounds/Black Clover Opening 3 - Black Rover.mp3" />
+    </audio>
+    <audio id="audiofile-win2" preload="auto" loop>
+      <source src="sounds/Jojo's Bizarre Adventure Opening 2 - BLOODY STREAM.mp3" />
+    </audio>
+    <audio id="audiofile-win3" preload="auto" loop>
+      <source src="sounds/Your Lie in April Opening 1 - If It Shines.mp3" />
+    </audio>
+    <audio id="audiofile-win4" preload="auto" loop>
+      <source src="sounds/No Game No Life Opening - This game.mp3" />
+    </audio>
+    <audio id="audiofile-win5" preload="auto" loop>
+      <source src="sounds/Kimetsu no Yaiba Opening - Gurenge.mp3" />
+    </audio>
+    <audio id="audiofile-win6" preload="auto" loop>
+      <source src="sounds/Tokyo Ghoul Opening - Unravel.mp3" />
+    </audio>
+    <audio id="audiofile-win7" preload="auto" loop>
+      <source src="sounds/Fairy Tail - Snow Fairy.mp3" />
+    </audio>
+    <audio id="audiofile-win8" preload="auto" loop>
+      <source src="sounds/Shingeki no Kyojin 2 Opening - Shinzou wo Sasageyo.mp3" />
+    </audio>
+    <audio id="audiofile-win9" preload="auto" loop>
+      <source src="sounds/One Punch Man Opening - THE HERO.mp3" />
+    </audio>
+
+
   </body>
   <script src="connect4.js"></script>
 </html>

@@ -67,10 +67,17 @@ var rotAmZug=1;
 var rotGewonnen=0;
 var blauGewonnen=0;
 var runden=0;
+var zug=0;
+
+
 
 //Funktion, die jeden Zug aufgerufen wird
 
  function setzeFarbe(col) {
+
+  
+
+  document.getElementById('audiofile-place-coin').play();
 
   //Suchfunktion um in der Spalte (col), die Reihe (y) zu finden, die noch keine Farbe/Coin hat (von unten nach oben)
   var y=0
@@ -81,13 +88,14 @@ var runden=0;
   if(rotAmZug==1){
     board[col][y].classList.add("red");
     rotAmZug=0;
-    setzeBg()
+    setzeBg();
   }else if(rotAmZug==0){
     board[col][y].classList.add("blue");
     rotAmZug=1;
-    setzeBg()
+    setzeBg();
   }
-
+  zug++;
+  
   //Variable um zu speichern ob jemand und wer gewonnen
   var gewonnen;  
   //horizontal gewonnen (Funktion, die überprüft ob jemand Horizontal gewonnen hat)
@@ -254,15 +262,29 @@ var runden=0;
   
   if(gewonnen==1){
     winP1.classList.add("display-on");
+    randomSound();
     rotGewonnen++;
     rotAmZug=0;
     runden++;
   }else if(gewonnen==2){
     winP2.classList.add("display-on");
+    randomSound();
     blauGewonnen++;
     rotAmZug=1;
     runden++;
+  }else if(zug==42){
+    noWin.classList.add("display-on");
+    document.getElementById('audiofile-nobody-wins').play();
+    runden++;
+    blauGewonnen=blauGewonnen+0.5;
+    rotGewonnen=rotGewonnen+0.5;
+    if(rotAmZug==1){
+      rotAmZug=0;
+    }else{
+      rotAmZug=1;
+    }
   }
+  
   colorContainer.classList.add("fall-animation");
   game.classList.remove("floating-animation");
   //Gewinn Counter wird aktualisiert
@@ -296,6 +318,10 @@ const winCounterP1 = document.getElementById('win-c-p1');
 const winCounterP2 = document.getElementById('win-c-p2');
 const winP1 = document.getElementById('win-message-p1');
 const winP2 = document.getElementById('win-message-p2');
+const noWin = document.getElementById('no-win-message');
+const colorPickerContainer1 = document.getElementById('color-picker-container1');
+const colorPickerContainer2 = document.getElementById('color-picker-container2');
+
 
 const lightSwitch = document.getElementById('light-switch');
 const sun = document.getElementById('sun');
@@ -326,6 +352,9 @@ function setzeBg(){
 let root = document.documentElement;
 
 function changeColor(player,color){
+
+  document.getElementById('audiofile-color-picker').play();
+
   if(player==1){
     root.style.setProperty('--primary-color',color );
   }else{
@@ -336,27 +365,42 @@ function changeColor(player,color){
 //Eine Zufallsfarbe wird generiert und dem eingefügten Spieler zugeordnet
 
 function randomColor(player){
+
+  document.getElementById('audiofile-color-picker').play();
+
 const randomColor = Math.floor(Math.random()*16777215).toString(16);
-if(player==1){
+if(blindModeOn==1){
   root.style.setProperty('--primary-color',"#" + randomColor );
-}else{
   root.style.setProperty('--secondary-color',"#" + randomColor );
+}else{
+  if(player==1){
+    root.style.setProperty('--primary-color',"#" + randomColor );
+  }else{
+    root.style.setProperty('--secondary-color',"#" + randomColor );
+  }
 }
 }
 
 //Dark mode button ändert das icon + die Hintergrundfarbe wird zwischen weiß und schwarz gewechselt
 
 function lightSwitch_Mode(){
+
+  document.getElementById('audiofile-switch').play();
+
   if(sun.classList.contains("display-on")==true){
     sun.classList.remove("display-on");
 
+    root.style.setProperty('--hover-color','#222' );
+    root.style.setProperty('--sec-background-color','#333' );
     root.style.setProperty('--background-color','#ffffff' );
     moon.classList.add("display-on");
 
   }else{
     moon.classList.remove("display-on");
 
-    root.style.setProperty('--background-color','#111016' );
+    root.style.setProperty('--hover-color','#0f0e13' );
+    root.style.setProperty('--sec-background-color','#201e27' );
+    root.style.setProperty('--background-color','#2A2636' );
     sun.classList.add("display-on");
   }
 }
@@ -372,8 +416,10 @@ function sleep(milliseconds) {
 
 function reset(){
   sleep(200);
+
   winP1.classList.remove("display-on");
   winP2.classList.remove("display-on");
+  noWin.classList.remove("display-on");
   colorContainer.classList.remove("fall-animation");
   section_bg.classList.remove("player1-section");
   section_bg.classList.remove("player2-section");
@@ -385,9 +431,118 @@ function reset(){
     board[i][j].classList.remove("blue");
    }
   }
-
+  zug=0;
   winCounterP1.classList.add("display-on");
   winCounterP2.classList.add("display-on");
 }
 
+var blindModeOn = 0;
 
+const normal_mode = document.getElementById('normal-mode');
+const blind_mode = document.getElementById('blind-mode');
+
+
+function blindMode(color){
+
+  document.getElementById('audiofile-change-mode').play();
+
+  blindModeOn = 1;
+  if(winCounterP1.classList.contains("display-on")==true){
+    reset();
+  }else{
+    reset();
+    winCounterP1.classList.remove("display-on");
+    winCounterP2.classList.remove("display-on");
+  }
+  
+
+  normal_mode.classList.remove("navbar-active");
+  blind_mode.classList.add("navbar-active");
+
+  root.style.setProperty('--secondary-color',color);
+  root.style.setProperty('--primary-color',color);
+  colorPickerContainer1.classList.add("color-picker-container-blind1");
+  colorPickerContainer2.classList.add("color-picker-container-blind2");
+}
+
+function normalMode(color1,color2){
+
+  document.getElementById('audiofile-change-mode').play();
+
+  blindModeOn = 0;
+  colorPickerContainer1.classList.remove("color-picker-container-blind1");
+  colorPickerContainer2.classList.remove("color-picker-container-blind2");
+  if(winCounterP1.classList.contains("display-on")==true){
+    reset();
+  }else{
+    reset();
+    winCounterP1.classList.remove("display-on");
+    winCounterP2.classList.remove("display-on");
+  }
+  
+  blind_mode.classList.remove("navbar-active");
+  normal_mode.classList.add("navbar-active");
+
+  root.style.setProperty('--secondary-color', color1 );
+  root.style.setProperty('--primary-color', color2 );
+}
+
+function fullReset(){
+  runden=0;
+  rotGewonnen=0;
+  blauGewonnen=0;
+  reset();
+  winCounterP1.classList.remove("display-on");
+  winCounterP2.classList.remove("display-on");
+  normalMode('#e63946','#3E61AC');
+}
+
+mySounds = [ 'audiofile-win1', 'audiofile-win2', 'audiofile-win3', 'audiofile-win4', 'audiofile-win5', 'audiofile-win6', 'audiofile-win7', 'audiofile-win8', 'audiofile-win9' ]
+function randomSound() {
+  var index = Math.floor(Math.random() * 1000) % mySounds.length;
+  var id = mySounds[index];
+  var audioElement = document.getElementById(id);
+  audioElement.play();
+}
+document.addEventListener('click', function(e){
+  var audios = document.getElementsByTagName('audio');
+  for(var i = 0, len = audios.length; i < len;i++){
+      if(audios[i] != e.target){
+          audios[i].pause();
+          audios[i].currentTime=0;
+      }
+  }
+}, true);
+
+document.getElementById('audiofile-win2').volume = 0.2;
+document.getElementById('audiofile-win1').volume = 0.6;
+document.getElementById('audiofile-win5').volume = 0.5;
+document.getElementById('audiofile-win7').volume = 0.5;
+
+const muteButton = document.getElementById('mute-button');
+
+function muteMe(elem) {
+  elem.muted = true;
+  elem.pause();
+  document.getElementById('audiofile-mute').muted = false;
+  document.getElementById('audiofile-mute').play();
+}
+function muteMeNot(elem) {
+  elem.muted = false;
+  elem.pause();
+  document.getElementById('audiofile-mute').muted = false;
+  document.getElementById('audiofile-mute').play();
+}
+
+var muteButtonOn=0;
+function muteButtonChange(){
+  if(muteButtonOn==0){
+    document.querySelectorAll("audio").forEach( elem => muteMe(elem) );
+    muteButton.classList.add("mute-bg");
+    muteButtonOn=1;
+  }else{
+    document.querySelectorAll("audio").forEach( elem => muteMeNot(elem) );
+    muteButton.classList.remove("mute-bg");
+    muteButtonOn=0;
+  }
+}
